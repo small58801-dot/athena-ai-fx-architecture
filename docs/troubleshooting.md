@@ -138,16 +138,16 @@ Causes:
 - Memory pressure
 
 Fix:
-- Check system load: top or htop
-- Restart cluster in order:
-  sudo systemctl restart ares.service && \
-  sudo systemctl restart oracle.service && \
-  sudo systemctl restart erebus.service && \
-  sudo systemctl restart prometheus.service && \
-  sudo systemctl restart hermes.service && \
-  sudo systemctl restart athena.service && \
-  sudo systemctl restart orion.service && \
-  sudo systemctl restart cerberus.service
+Check system load: top or htop
+Restart cluster in order:
+  - sudo systemctl restart ares.service && \
+  - sudo systemctl restart oracle.service && \
+  - sudo systemctl restart erebus.service && \
+  - sudo systemctl restart prometheus.service && \
+  - sudo systemctl restart hermes.service && \
+  - sudo systemctl restart athena.service && \
+  - sudo systemctl restart orion.service && \
+  - sudo systemctl restart cerberus.service
 
 
 ### **3. PORT & CONNECTIVITY CHECKS**
@@ -155,28 +155,28 @@ Fix:
 -----------------------------------------------
 **Test module endpoints directly**
 -----------------------------------------------
-Athena      → curl localhost:8580/athena/status
-Hermes      → curl localhost:8200/health
-Erebus      → curl localhost:8400/health
-Prometheus  → curl localhost:8300/summary
-Oracle      → curl localhost:8750/signal/EUR_USD
-Ares        → curl localhost:8900/context/EUR_USD
-Orion       → curl localhost:8600/version
-Cerberus    → curl localhost:8700/status
+- Athena      → curl localhost:8580/athena/status
+- Hermes      → curl localhost:8200/health
+- Erebus      → curl localhost:8400/health
+- Prometheus  → curl localhost:8300/summary
+- Oracle      → curl localhost:8750/signal/EUR_USD
+- Ares        → curl localhost:8900/context/EUR_USD
+- Orion       → curl localhost:8600/version
+- Cerberus    → curl localhost:8700/status
 
 If any return HTML instead of JSON → service boot failed.
 
 -----------------------------------------------
 **Test port availability**
 -----------------------------------------------
-sudo lsof -i :8580
-sudo lsof -i :8200
-sudo lsof -i :8400
-sudo lsof -i :8300
-sudo lsof -i :8750
-sudo lsof -i :8900
-sudo lsof -i :8600
-sudo lsof -i :8700
+- sudo lsof -i :8580
+- sudo lsof -i :8200
+- sudo lsof -i :8400
+- sudo lsof -i :8300
+- sudo lsof -i :8750
+- sudo lsof -i :8900
+- sudo lsof -i :8600
+- sudo lsof -i :8700
 
 If "no process found" → the service is not running.
 
