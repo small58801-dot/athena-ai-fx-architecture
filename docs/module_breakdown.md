@@ -1,14 +1,14 @@
-Module Breakdown
+# Module Breakdown
 
 This architecture is composed of eight core modules working together as a fully autonomous FX trading ecosystem. Each module is isolated, single-responsibility, and communicates through lightweight HTTP APIs and the shared SQLite event database.
 
-1. Athena — Strategy & Decision Engine
+### **1. Athena — Strategy & Decision Engine**
 
 File: athena_brain.py
 Athena is the “brain” of the trading ecosystem.
 It ingests multi-timeframe indicators, microstructure signals, sentiment, trend scoring, and session-filtered volatility before generating BUY/SELL/HOLD decisions.
 
-Primary Responsibilities
+### **Primary Responsibilities**
 
 * Multi-TF technical signal generation (1m → 15m)
 
@@ -28,16 +28,14 @@ Primary Responsibilities
 
 * Writing structured trade objects to athena_trades
 
-2. Orion — Strategy Architect & Evolution Engine
+### **2. Orion — Strategy Architect & Evolution Engine**
 
 File: orion.py 
-
-orion
 
 
 Orion acts as the in-system quant engineer. It evaluates real trade history, detects weaknesses, and produces human-reviewable strategy upgrades (never applied automatically for safety).
 
-Primary Responsibilities
+### **Primary Responsibilities**
 
 * Full trade-history ingestion and statistics engine
 
@@ -53,12 +51,12 @@ Primary Responsibilities
 
 * Always SAFE: no disk writes, no service restarts, no auto-apply
 
-3. Oracle — Microstructure Engine
+### **3. Oracle — Microstructure Engine**
 
 File: oracle_main.py
 Oracle replicates institutional liquidity signals normally available only to HFT desks. It generates synthetic depth, sweep detection, and micro-pulse directional bias.
 
-Primary Responsibilities
+### **Primary Responsibilities**
 
 * Real and synthetic order-book modeling
 
@@ -76,12 +74,12 @@ Primary Responsibilities
 
 * Stores stateful microstructure memory in SQLite
 
-4. Erebus — Sentiment Engine
+### **4. Erebus — Sentiment Engine**
 
 File: erebus.py
 Your sentiment engine that transforms news, macro indicators, and local heuristics into a simple bullish/bearish/neutral “risk regime.”
 
-Primary Responsibilities
+### **Primary Responsibilities**
 
 * Local rule-based sentiment scoring
 
@@ -93,12 +91,12 @@ Primary Responsibilities
 
 * Light-weight and low-latency
 
-5. Hermes — Execution Router
+### **5. Hermes — Execution Router**
 
 File: hermes_main.py
 The dedicated execution engine responsible for routing orders to OANDA with strict safety, clean formatting, and no duplication.
 
-Primary Responsibilities
+### **Primary Responsibilities**
 
 * Receive trade commands from Athena
 
@@ -112,16 +110,14 @@ Primary Responsibilities
 
 * Logs outbound execution attempts
 
-6. Prometheus — Real P/L & Trade Integrity Engine
+### **6. Prometheus — Real P/L & Trade Integrity Engine**
 
 File: prometheus.py 
-
-prometheus
 
 
 Prometheus is the real-time P/L engine that pulls actual account fills from OANDA and writes finalized entry/exit rows into athena_trades.
 
-Primary Responsibilities
+### **Primary Responsibilities**
 
 * Poll OANDA transactions safely
 
@@ -137,12 +133,12 @@ Primary Responsibilities
 
 * The single source of truth for P/L and trade outcomes
 
-7. Ares — Order-Block & Structure Engine
+### **7. Ares — Order-Block & Structure Engine**
 
 File: ares.py
 Lightweight module that identifies higher-timeframe structure and order-blocks used as contextual bias.
 
-Primary Responsibilities
+### **Primary Responsibilities**
 
 * Identify market structure (HH, HL, LL, LH)
 
@@ -152,12 +148,12 @@ Primary Responsibilities
 
 * Feed structure hints to Athena
 
-8. Cerberus — System Guardian / Watchdog
+### **8. Cerberus — System Guardian / Watchdog**
 
 File: cerberus.py
 The system’s safety watchdog that ensures no module gets stuck, crashes silently, or violates runtime stability.
 
-Primary Responsibilities
+### **Primary Responsibilities**
 
 * Health-checks for all microservices
 
