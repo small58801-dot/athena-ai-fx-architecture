@@ -1,5 +1,5 @@
 # Risk Controls & Safety Systems  
-Athena AI FX Architecture
+### **Athena AI FX Architecture**
 
 This document describes the layered safety and risk-management controls across all modules.  
 The system is designed so **no single module can cause catastrophic loss**, and multiple independent layers verify conditions before any trade is executed.
