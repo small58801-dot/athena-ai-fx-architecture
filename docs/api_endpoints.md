@@ -14,19 +14,19 @@ Each module is a FastAPI service running locally, communicating over internal po
 | Ares         | 8900 | Order-block / CHoCH engine              |
 | Oracle       | 8750 | Microstructure + liquidity              |
 | Orion        | 8600 | Strategy evolution engine               |
-| Cerberus     | 8600 | Health monitoring (uses Orion’s port)   |
+| Cerberus     | 8700 | Health monitoring (uses Orion’s port)   |
 
 ---
 
 # 1. Athena (Port 8580)
 
 ### **1.1 GET /athena/status**
-Returns heartbeat, runtime info, and uptime.
+- Returns heartbeat, runtime info, and uptime.
 
 ### **1.2 POST /athena/sentiment**
-Sentiment push from Erebus.
+- Sentiment push from Erebus.
 
-Payload:
+# Payload:
 
 {
   "macro_signal": "RISK_ON",
@@ -34,23 +34,20 @@ Payload:
   "vix": 14.5
 }
 
-1.3 POST /athena/broadcast
-Cerberus sends motivational messages to Athena.
+## 2. Hermes – Execution Bridge (Port 8200)
+### **2.1 GET /health**
+- Returns Hermes status.
 
-2. Hermes – Execution Bridge (Port 8200)
-2.1 GET /health
-Returns Hermes status.
+### **2.2 GET /account_state**
+- Fetches OANDA account summary (NAV, margin, balance).
 
-2.2 GET /account_state
-Fetches OANDA account summary (NAV, margin, balance).
+### **2.3 GET /open_positions**
+- Returns open positions from OANDA.
 
-2.3 GET /open_positions
-Returns open positions from OANDA.
+### **2.4 POST /execute**
+- Main execution endpoint called by Athena.
 
-2.4 POST /execute
-Main execution endpoint called by Athena.
-
-Payload:
+# Payload:
 
 {
   "secret": "ysm_jmk",
@@ -59,7 +56,7 @@ Payload:
   "qty": 120
 }
 
-Hermes will:
+### **Hermes will:**
 
 * Filter non-trade actions (hold/skip/wait)
 
@@ -71,16 +68,16 @@ Hermes will:
 
 * Notify Prometheus
 
-3. Erebus – Sentiment Engine (Port 8400)
-3.1 GET /health
+# 3. Erebus – Sentiment Engine (Port 8400)
+### **3.1 GET /health**
 
-Healthcheck endpoint.
+- Healthcheck endpoint.
 
-3.2 GET /sentiment
+### **3.2 GET /sentiment**
 
-Main public endpoint Athena calls.
+- Main public endpoint Athena calls.
 
-Response:
+### **Response:**
 
 {
   "macro_signal": "RISK_ON",
@@ -88,12 +85,12 @@ Response:
   "vix": 15.0
 }
 
-3.3 POST /broadcast
+### **3.3 POST /broadcast**
 
-Internal pipeline to send updates to Athena/Hermes.
+- Internal pipeline to send updates to Athena/Hermes.
 
-4. Ares v12 – Order Block Engine (Port 8900)
-4.1 GET /context/{symbol}
+# 4. Ares v12 – Order Block Engine (Port 8900)
+### **4.1 GET /context/{symbol}**
 
 Example: /context/EUR_USD
 
@@ -111,7 +108,7 @@ Returns:
 
 * combined strength score
 
-Response example:
+### **Response example:**
 
 {
   "pattern": "BOS_UP",
@@ -121,8 +118,8 @@ Response example:
   "breakout": false
 }
 
-5. Oracle v3.6 – Microstructure Engine (Port 8750)
-5.1 GET /signal/{symbol}
+# 5. Oracle v3.6 – Microstructure Engine (Port 8750)
+### **5.1 GET /signal/{symbol}**
 
 Example: /signal/EUR_USD
 
@@ -144,8 +141,8 @@ Returns:
 
 Used by Athena to refine entries/exits.
 
-6. Prometheus – Real P/L & Equity Engine (Port 8300)
-6.1 GET /summary
+# 6. Prometheus – Real P/L & Equity Engine (Port 8300)
+### **6.1 GET /summary**
 
 Returns:
 
@@ -157,13 +154,13 @@ Returns:
 
 * performance trajectory
 
-6.2 POST /log
+### **6.2 POST /log**
 
-Hermes sends real-time execution logs here.
+- Hermes sends real-time execution logs here.
 
-Background Internal Calls
+- Background Internal Calls
 
-(Not public endpoints):
+### **(Not public endpoints):**
 
 * /transactions
 
@@ -171,12 +168,12 @@ Background Internal Calls
 
 Used to reconcile OANDA-filled orders.
 
-7. Orion Omega v9.0 – Strategy Engine (Port 8600)
-7.1 GET /orion/health
+# 7. Orion Omega v9.0 – Strategy Engine (Port 8600)
+### **7.1 GET /orion/health**
 
-Healthcheck.
+- Healthcheck.
 
-7.2 GET /orion/strategy_report
+### **7.2 GET /orion/strategy_report**
 
 Returns:
 
@@ -186,16 +183,16 @@ Returns:
 
 * upgrade recommendations
 
-7.3 POST /orion/upgrade_strategy
+### **7.3 POST /orion/upgrade_strategy**
 
 Returns reconstructed strategy code for Athena.
 
-IMPORTANT:
+# IMPORTANT:
 Orion does NOT apply upgrades — only returns files for you to manually review.
 
-8. Cerberus – Health Orchestrator (Port 8600)
+# 8. Cerberus – Health Orchestrator (Port 8600)
 
-Cerberus does not expose many endpoints.
+### **Cerberus does not expose many endpoints.**
 It pulls from other modules:
 
 * GET Athena status
@@ -208,9 +205,9 @@ It pulls from other modules:
 
 * GET Orion health
 
-8.1 POST /athena/broadcast
+### **8.1 POST /athena/broadcast**
 
-Cerberus sends messages to Athena.
+- Cerberus sends messages to Athena.
 
 Cerberus is mostly an internal scheduler + watchdog.
 
