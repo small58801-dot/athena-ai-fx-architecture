@@ -1,5 +1,5 @@
-Athena AI FX Architecture — System Overview
-1. Introduction
+# Athena AI FX Architecture — System Overview
+### **1. Introduction**
 
 Athena is a modular, production-tested AI trading architecture designed for real-time FX execution.
 Unlike single-script EAs or monolithic algorithms, Athena is a distributed multi-service system composed of independent engines for:
@@ -20,7 +20,7 @@ Each module runs as its own service with clearly defined boundaries, data contra
 
 The architecture is designed to be extensible, interpretable, and suitable for institutional environments where stability, modularity, and resilience matter.
 
-2. High-Level System Goals
+### **2. High-Level System Goals**
 
 Athena is engineered to deliver:
 
@@ -40,7 +40,7 @@ Each service can be improved or replaced without breaking the entire system.
 
 The system runs live against OANDA with real trades, logs, data persistence, and robust error handling.
 
-3. Core Components
+### **3. Core Components**
 
 Athena is composed of six primary modules:
 
@@ -130,7 +130,7 @@ F. Prometheus — Analytics & Feedback Engine
 
 Prometheus is the long-term optimization engine.
 
-4. Data Architecture
+### **4. Data Architecture**
 
 * Athena uses a centralized SQLite database for:
 
@@ -152,7 +152,7 @@ This allows:
 
 * Real-time adaptation loops
 
-5. Execution Flow (High-Level)
+### **5. Execution Flow (High-Level)**
 
 * Athena scans market
 
@@ -174,7 +174,7 @@ This allows:
 
 This creates a full-circle decision ecosystem.
 
-6. Why This Architecture Matters
+### **6. Why This Architecture Matters**
 
 This is not an EA.
 This is not an ML toy.
@@ -204,7 +204,7 @@ The system is structured so a buyer can:
 
 It’s built realistically — the way real firms operate.
 
-7. Summary
+### **7. Summary**
 
 Athena AI FX Architecture provides:
 
