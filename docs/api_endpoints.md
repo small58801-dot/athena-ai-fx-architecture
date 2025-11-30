@@ -14,8 +14,7 @@ Each module is a FastAPI service running locally, communicating over internal po
 | Ares         | 8900 | Order-block / CHoCH engine              |
 | Oracle       | 8750 | Microstructure + liquidity              |
 | Orion        | 8600 | Strategy evolution engine               |
-| Cerberus     | 8700 | Health monitoring (uses Orion’s port)   |
-
+| Cerberus     | 8700 | Health monitoring 
 ---
 
 # 1. Athena (Port 8580)
