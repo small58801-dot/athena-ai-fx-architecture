@@ -1,7 +1,7 @@
 # Athena – Multi-Module AI FX Trading Architecture  
 **Risk Engine • Microstructure • Sentiment • Execution • Strategy Brain**
 
-This repository documents a complete multi-service AI FX trading architecture built over several months of engineering, live testing, and system iteration.  
+This repository documents a complete multi-service AI FX trading architecture built over two years of engineering, live testing, and system iteration.  
 It is not a traditional EA or a single-file bot — it is a modular, full-stack architecture designed for expansion, research, and real-time trading.
 
 ---
