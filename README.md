@@ -85,8 +85,7 @@ I’m open to discussions with:
 
 ### **Current licensing structure**
 - **$60k upfront** for a non-exclusive license  
-- **+ $90k after 60-90 day validation period**  
-- Optional **10% profit-share** if long-term involvement is desired  
+- **+ $120k Exclusive License**   
 
 If you want to review, validate, or build on top of the architecture, email:
 
