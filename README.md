@@ -84,8 +84,8 @@ I’m open to discussions with:
 - Independent quants seeking a full-stack foundation
 
 ### **Current licensing structure**
-- **$60k upfront** for a non-exclusive license  
-- **+ $120k Exclusive License**   
+- **$5k upfront** for a non-exclusive license  
+- **+ $60k Exclusive License**   
 
 If you want to review, validate, or build on top of the architecture, email:
 
